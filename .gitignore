@@ -1,0 +1,35 @@
+# ────────────────
+# .NET
+bin/
+obj/
+*.db
+*.sqlite
+*.pfx
+*.log
+*.bak
+*.user
+*.suo
+*.vs/
+Migrations/
+
+# ASP.NET Secrets
+secrets.json
+
+# ────────────────
+# Frontend Frameworks
+node_modules/
+build/
+dist/
+.env
+.npmrc
+
+# ────────────────
+# VS Code & IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# ────────────────
+# OS 
+.DS_Store
+Thumbs.db
