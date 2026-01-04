@@ -1,0 +1,48 @@
+<body>
+  <div id="login-area">
+    <input id="username" placeholder="Takma adınızı girin..." />
+    <button onclick="setNickname()">Sohbete Başla</button>
+  </div>
+
+  <div id="chat-area" style="display: none">
+    <ul id="mesajlar"></ul>
+    <form id="form">
+      <input id="input" autocomplete="off" /><button>Gönder</button>
+    </form>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    let myName = "";
+
+    function setNickname() {
+      const nameInput = document.getElementById("username");
+      if (nameInput.value) {
+        myName = nameInput.value;
+        document.getElementById("login-area").style.display = "none";
+        document.getElementById("chat-area").style.display = "block";
+      }
+    }
+
+    const form = document.getElementById("form");
+    const input = document.getElementById("input");
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (input.value) {
+        socket.emit("chat_message", {
+          user: myName,
+          text: input.value,
+        });
+        input.value = "";
+      }
+    });
+
+    socket.on("chat_message", (data) => {
+      const item = document.createElement("li");
+      item.innerHTML = `<strong>${data.user}:</strong> ${data.text}`;
+      document.getElementById("mesajlar").appendChild(item);
+    });
+  </script>
+</body>
